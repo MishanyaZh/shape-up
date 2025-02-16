@@ -1,0 +1,4 @@
+node_modules
+.next
+eslint.config.mjs
+next.config.ts
