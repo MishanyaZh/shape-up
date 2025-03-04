@@ -1,8 +1,12 @@
+'use client';
+
+import FoodTrackingCard from '@/components/FoodTrackingCard/FoodTrackingCard';
+
 export default function Home() {
   return (
     <div>
       <main>
-        <h1>Home Page</h1>
+        <FoodTrackingCard />
       </main>
       <footer>
         <p>Footer</p>
