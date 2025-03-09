@@ -1,4 +1,4 @@
-import { SelectOption } from '../components/ui/Select';
+import { SelectOption } from '../../shared/ui/Select';
 
 export const foodCategories: SelectOption[] = [
   { value: 'proteins', label: 'Proteins' },

@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import Card from '@/components/ui/Card';
-import Select from '@/components/ui/Select';
-import Input from '@/components/ui/Input';
-import Button from '@/components/ui/Button';
-import { foodCategories, mealTypes } from '@/data/foodCategories';
+import Card from '@/shared/ui/Card';
+import Select from '@/shared/ui/Select';
+import Input from '@/shared/ui/Input';
+import Button from '@/shared/ui/Button';
+import { foodCategories, mealTypes } from '@/lib/data/foodCategories';
 
 export default function FoodTrackingCard() {
   const [foodCategory, setFoodCategory] = useState('');

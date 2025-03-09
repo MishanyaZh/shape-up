@@ -1,6 +1,6 @@
 'use client';
 
-import FoodTrackingCard from '@/components/FoodTrackingCard/FoodTrackingCard';
+import FoodTrackingCard from '@/features/food-tracking/FoodTrackingCard';
 
 export default function Home() {
   return (
