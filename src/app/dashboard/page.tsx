@@ -1,8 +1,16 @@
-export default function Dashboard() {
+'use client';
+
+import FoodTrackingCard from '@/features/food-tracking/FoodTrackingCard';
+
+export default function DailyTracking() {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
+      <main>
+        <FoodTrackingCard />
+      </main>
+      <footer>
+        <p>Footer</p>
+      </footer>
     </div>
   );
 }
