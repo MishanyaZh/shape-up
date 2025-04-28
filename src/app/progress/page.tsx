@@ -2,7 +2,7 @@
 
 import FoodTrackingCard from '@/features/food-tracking/FoodTrackingCard';
 
-export default function DailyTracking() {
+export default function Progress() {
   return (
     <div>
       <main>
