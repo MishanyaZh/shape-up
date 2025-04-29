@@ -1,17 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Paper,
-  Divider,
-} from '@mui/material';
 import Link from 'next/link';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Select, { SelectOption } from '@/shared/ui/Select';
+import Select from '@/shared/ui/Select';
 import Input from '@/shared/ui/Input';
 import Button from '@/shared/ui/Button';
 import Card from '@/shared/ui/Card';
@@ -24,45 +15,20 @@ import {
   Gender,
   Goal,
   ActivityLevel,
+  genderOptions,
+  activityOptions,
+  goalOptions,
   Macronutrient,
 } from '@/shared/utils/nutrition';
-
-const genderOptions: SelectOption[] = [
-  { value: Gender.MALE, label: 'Мужской' },
-  { value: Gender.FEMALE, label: 'Женский' },
-];
-
-const activityOptions: SelectOption[] = [
-  {
-    value: ActivityLevel.SEDENTARY,
-    label: 'Сидячий (мало или совсем нет упражнений)',
-  },
-  {
-    value: ActivityLevel.LIGHT,
-    label: 'Легкая активность (легкие упражнения/спорт 1-3 дня в неделю)',
-  },
-  {
-    value: ActivityLevel.MODERATE,
-    label:
-      'Умеренная активность (умеренные упражнения/спорт 3-5 дней в неделю)',
-  },
-  {
-    value: ActivityLevel.ACTIVE,
-    label:
-      'Высокая активность (интенсивные упражнения/спорт 6-7 дней в неделю)',
-  },
-  {
-    value: ActivityLevel.VERY_ACTIVE,
-    label:
-      'Очень высокая активность (очень интенсивные упражнения и физическая работа)',
-  },
-];
-
-const goalOptions: SelectOption[] = [
-  { value: Goal.LOSE, label: 'Похудеть' },
-  { value: Goal.MAINTAIN, label: 'Поддерживать вес' },
-  { value: Goal.GAIN, label: 'Набрать вес' },
-];
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Paper,
+  Divider,
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface CalculatorFormData {
   gender: Gender;
@@ -276,9 +242,10 @@ export default function CalculatorsPage() {
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <Link href="/" passHref style={{ textDecoration: 'none' }}>
           <Button
+            size="small"
             variant="outlined"
             startIcon={<ArrowBackIcon />}
-            sx={{ mr: 2 }}
+            sx={{ mr: 1 }}
           >
             На главную
           </Button>

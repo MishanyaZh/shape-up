@@ -32,7 +32,7 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
 }));
 
 const Section = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(10, 0),
+  padding: theme.spacing(3, 0),
 }));
 
 export default function Home() {

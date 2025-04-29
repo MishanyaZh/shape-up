@@ -17,7 +17,7 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   color: 'white',
   padding: theme.spacing(10, 0),
   borderRadius: theme.shape.borderRadius,
-  marginBottom: theme.spacing(6),
+  marginBottom: theme.spacing(3),
   position: 'relative',
   overflow: 'hidden',
   '&::before': {

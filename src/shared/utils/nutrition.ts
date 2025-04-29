@@ -17,17 +17,6 @@ export enum ActivityLevel {
   VERY_ACTIVE = '1.9',
 }
 
-export const CALORIC_VALUES = {
-  DEFICIT: 500, // - ~0.5 kg\week
-  SURPLUS: 500, // + ~0.5 kg\week
-};
-
-export const NUTRITION_CONSTANTS = {
-  PROTEIN_CALORIES_PER_GRAM: 4,
-  CARBS_CALORIES_PER_GRAM: 4,
-  FAT_CALORIES_PER_GRAM: 9,
-};
-
 export interface Macronutrient {
   grams: number;
   calories: number;
@@ -47,6 +36,17 @@ interface CalculationParams {
   age: number;
   activityMultiplier: number; // activity level multiplier
 }
+
+export const CALORIC_VALUES = {
+  DEFICIT: 500, // - ~0.5 kg\week
+  SURPLUS: 500, // + ~0.5 kg\week
+};
+
+export const NUTRITION_CONSTANTS = {
+  PROTEIN_CALORIES_PER_GRAM: 4,
+  CARBS_CALORIES_PER_GRAM: 4,
+  FAT_CALORIES_PER_GRAM: 9,
+};
 
 /**
  * Calculates the Basal Metabolic Rate (BMR) using the Mifflin-St Jeor formula
@@ -114,7 +114,6 @@ export function calculateMacronutrients(
   weight: number,
   goal: Goal,
 ): MacronutrientDistribution {
-  // Adjust protein based on goal
   let proteinPerKg = 0;
   let fatPercentage = 0;
 
@@ -161,3 +160,40 @@ export function calculateMacronutrients(
     },
   };
 }
+
+export const genderOptions = [
+  { value: Gender.MALE, label: 'Мужской' },
+  { value: Gender.FEMALE, label: 'Женский' },
+];
+
+export const activityOptions = [
+  {
+    value: ActivityLevel.SEDENTARY,
+    label: 'Сидячий (мало или совсем нет упражнений)',
+  },
+  {
+    value: ActivityLevel.LIGHT,
+    label: 'Легкая активность (легкие упражнения/спорт 1-3 дня в неделю)',
+  },
+  {
+    value: ActivityLevel.MODERATE,
+    label:
+      'Умеренная активность (умеренные упражнения/спорт 3-5 дней в неделю)',
+  },
+  {
+    value: ActivityLevel.ACTIVE,
+    label:
+      'Высокая активность (интенсивные упражнения/спорт 6-7 дней в неделю)',
+  },
+  {
+    value: ActivityLevel.VERY_ACTIVE,
+    label:
+      'Очень высокая активность (очень интенсивные упражнения и физическая работа)',
+  },
+];
+
+export const goalOptions = [
+  { value: Goal.LOSE, label: 'Похудеть' },
+  { value: Goal.MAINTAIN, label: 'Поддерживать вес' },
+  { value: Goal.GAIN, label: 'Набрать вес' },
+];
