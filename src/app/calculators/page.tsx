@@ -1,7 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Container, Typography, Grid, Paper } from '@mui/material';
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Paper,
+  Divider,
+} from '@mui/material';
+import Link from 'next/link';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Select, { SelectOption } from '@/shared/ui/Select';
 import Input from '@/shared/ui/Input';
 import Button from '@/shared/ui/Button';
@@ -10,9 +19,12 @@ import {
   calculateBasalMetabolicRate,
   calculateTotalDailyEnergyExpenditure,
   calculateTargetCalories,
+  calculateMacronutrients,
+  MacronutrientDistribution,
   Gender,
   Goal,
   ActivityLevel,
+  Macronutrient,
 } from '@/shared/utils/nutrition';
 
 const genderOptions: SelectOption[] = [
@@ -65,6 +77,7 @@ interface CalculationResults {
   bmr: number | null;
   tdee: number | null;
   goal: number | null;
+  macros: MacronutrientDistribution | null;
 }
 
 export default function CalculatorsPage() {
@@ -81,6 +94,7 @@ export default function CalculatorsPage() {
     bmr: null,
     tdee: null,
     goal: null,
+    macros: null,
   });
 
   const [errors, setErrors] = useState({
@@ -154,23 +168,130 @@ export default function CalculatorsPage() {
     e.preventDefault();
 
     if (validateForm()) {
+      const weight = parseFloat(formData.weight);
       const bmr = calculateBMR();
       const tdee = calculateTDEE(bmr);
       const goalCalories = calculateGoalCalories(tdee);
+      const macros = calculateMacronutrients(
+        goalCalories,
+        weight,
+        formData.goal as Goal,
+      );
 
       setResults({
         bmr: Math.round(bmr),
         tdee: Math.round(tdee),
         goal: Math.round(goalCalories),
+        macros: macros,
       });
     }
   };
 
+  const renderMacronutrientBox = (
+    title: string,
+    macro: Macronutrient,
+    bgColor: string,
+  ) => {
+    return (
+      <Box
+        sx={{
+          textAlign: 'center',
+          p: 1,
+          bgcolor: bgColor,
+          borderRadius: 1,
+        }}
+      >
+        <Typography variant="subtitle2" color="white">
+          {title}
+        </Typography>
+        <Typography variant="h6" color="white">
+          {macro.grams} г
+        </Typography>
+        <Typography variant="body2" color="white">
+          {macro.calories} ккал
+        </Typography>
+        <Typography variant="body2" color="white">
+          {macro.percentage}%
+        </Typography>
+      </Box>
+    );
+  };
+
+  const renderMacroCard = () => {
+    if (!results.macros) return null;
+
+    return (
+      <Card title="Рекомендуемое распределение макронутриентов">
+        <Paper elevation={1} sx={{ p: 2, mb: 2 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="subtitle1">
+                Суточная норма: <strong>{results.goal} ккал</strong>
+              </Typography>
+              <Divider sx={{ my: 1 }} />
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              {renderMacronutrientBox(
+                'Белки',
+                results.macros.protein,
+                'success.light',
+              )}
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              {renderMacronutrientBox(
+                'Жиры',
+                results.macros.fats,
+                'warning.light',
+              )}
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              {renderMacronutrientBox(
+                'Углеводы',
+                results.macros.carbs,
+                'info.light',
+              )}
+            </Grid>
+
+            <Grid item xs={12}>
+              <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
+                {formData.goal === Goal.LOSE &&
+                  'При снижении веса важно поддерживать высокое потребление белка для сохранения мышечной массы.'}
+                {formData.goal === Goal.MAINTAIN &&
+                  'Сбалансированное питание поможет поддерживать текущий вес и хорошее самочувствие.'}
+                {formData.goal === Goal.GAIN &&
+                  'Для набора мышечной массы требуется положительный баланс калорий и достаточное количество белка.'}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Paper>
+      </Card>
+    );
+  };
+
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Typography variant="h4" component="h1" align="center" gutterBottom>
-        Калькулятор BMR и TDEE
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <Link href="/" passHref style={{ textDecoration: 'none' }}>
+          <Button
+            variant="outlined"
+            startIcon={<ArrowBackIcon />}
+            sx={{ mr: 2 }}
+          >
+            На главную
+          </Button>
+        </Link>
+        <Typography
+          variant="h4"
+          component="h1"
+          align="center"
+          sx={{ flexGrow: 1 }}
+        >
+          Калькулятор BMR и TDEE
+        </Typography>
+      </Box>
 
       <Typography variant="body1" align="center" paragraph>
         Рассчитайте свою базовую скорость метаболизма (BMR) и общий расход
@@ -319,6 +440,8 @@ export default function CalculatorsPage() {
               </Typography>
             )}
           </Card>
+
+          {results.macros && <Box sx={{ mt: 3 }}>{renderMacroCard()}</Box>}
         </Grid>
       </Grid>
     </Container>

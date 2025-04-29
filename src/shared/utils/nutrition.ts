@@ -22,6 +22,24 @@ export const CALORIC_VALUES = {
   SURPLUS: 500, // + ~0.5 kg\week
 };
 
+export const NUTRITION_CONSTANTS = {
+  PROTEIN_CALORIES_PER_GRAM: 4,
+  CARBS_CALORIES_PER_GRAM: 4,
+  FAT_CALORIES_PER_GRAM: 9,
+};
+
+export interface Macronutrient {
+  grams: number;
+  calories: number;
+  percentage: number;
+}
+
+export interface MacronutrientDistribution {
+  protein: Macronutrient;
+  fats: Macronutrient;
+  carbs: Macronutrient;
+}
+
 interface CalculationParams {
   gender: Gender;
   weight: number; // kg
@@ -82,4 +100,64 @@ export function calculateTargetCalories(tdee: number, goal: Goal): number {
     default:
       return tdee;
   }
+}
+
+/**
+ * Calculates the recommended macronutrient distribution based on daily calorie target and goal
+ * @param totalCalories Total daily calorie target
+ * @param weight Weight in kg (for protein calculation)
+ * @param goal Weight management goal
+ * @returns Recommended macronutrient distribution
+ */
+export function calculateMacronutrients(
+  totalCalories: number,
+  weight: number,
+  goal: Goal,
+): MacronutrientDistribution {
+  // Adjust protein based on goal
+  let proteinPerKg = 0;
+  let fatPercentage = 0;
+
+  switch (goal) {
+    case Goal.LOSE:
+      proteinPerKg = 2.2; // Higher protein for satiety and muscle preservation when cutting
+      fatPercentage = 0.25; // 25% from fats
+      break;
+    case Goal.MAINTAIN:
+      proteinPerKg = 1.8; // Moderate protein for maintenance
+      fatPercentage = 0.3; // 30% from fats
+      break;
+    case Goal.GAIN:
+      proteinPerKg = 2.0; // Good protein for muscle growth
+      fatPercentage = 0.3; // 30% from fats
+      break;
+  }
+
+  const proteinGrams = weight * proteinPerKg;
+  const proteinCalories =
+    proteinGrams * NUTRITION_CONSTANTS.PROTEIN_CALORIES_PER_GRAM;
+
+  const fatCalories = totalCalories * fatPercentage;
+  const fatGrams = fatCalories / NUTRITION_CONSTANTS.FAT_CALORIES_PER_GRAM;
+
+  const carbCalories = totalCalories - proteinCalories - fatCalories;
+  const carbGrams = carbCalories / NUTRITION_CONSTANTS.CARBS_CALORIES_PER_GRAM;
+
+  return {
+    protein: {
+      grams: Math.round(proteinGrams),
+      calories: Math.round(proteinCalories),
+      percentage: Math.round((proteinCalories / totalCalories) * 100),
+    },
+    fats: {
+      grams: Math.round(fatGrams),
+      calories: Math.round(fatCalories),
+      percentage: Math.round((fatCalories / totalCalories) * 100),
+    },
+    carbs: {
+      grams: Math.round(carbGrams),
+      calories: Math.round(carbCalories),
+      percentage: Math.round((carbCalories / totalCalories) * 100),
+    },
+  };
 }

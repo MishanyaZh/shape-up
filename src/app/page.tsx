@@ -63,6 +63,8 @@ export default function Home() {
                 icon={<CalculateIcon fontSize="inherit" color="primary" />}
                 title="Calculate Your Needs"
                 description="Answer a few questions and get your personalized caloric and macronutrient requirements."
+                ctaText="Calculate Your Needs"
+                ctaLink="/calculators"
               />
             </Box>
             <Box sx={{ width: { xs: '100%', md: '33.33%' } }}>
@@ -84,7 +86,7 @@ export default function Home() {
       </Section>
 
       {/* Benefits Section */}
-      <Section sx={{ bgcolor: 'background.paper' }}>
+      <Section>
         <Container>
           <SectionTitle variant="h3" as="h2">
             Why Choose Shape Up
