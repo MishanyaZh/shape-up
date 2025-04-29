@@ -8,29 +8,30 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
-export interface SelectOption {
-  value: string;
+export interface SelectOption<T extends string | number = string> {
+  value: T;
   label: string;
 }
 
-interface CustomSelectProps extends Omit<SelectProps, 'onChange'> {
-  options: SelectOption[];
+interface CustomSelectProps<T extends string | number = string>
+  extends Omit<SelectProps<T>, 'onChange'> {
+  options: SelectOption<T>[];
   label?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: T) => void;
 }
 
-export default function Select({
+export default function Select<T extends string | number = string>({
   options,
   label,
   onChange,
   value,
   ...props
-}: CustomSelectProps) {
+}: CustomSelectProps<T>) {
   const labelId = `${label?.toLowerCase().replace(/\s+/g, '-')}-label`;
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
     if (onChange) {
-      onChange(event.target.value as string);
+      onChange(event.target.value as T);
     }
   };
 
@@ -45,7 +46,7 @@ export default function Select({
         {...props}
       >
         {options.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
+          <MenuItem key={String(option.value)} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
