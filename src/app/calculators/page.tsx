@@ -10,57 +10,74 @@ import {
   calculateBasalMetabolicRate,
   calculateTotalDailyEnergyExpenditure,
   calculateTargetCalories,
+  Gender,
+  Goal,
+  ActivityLevel,
 } from '@/shared/utils/nutrition';
 
 const genderOptions: SelectOption[] = [
-  { value: 'male', label: 'Мужской' },
-  { value: 'female', label: 'Женский' },
+  { value: Gender.MALE, label: 'Мужской' },
+  { value: Gender.FEMALE, label: 'Женский' },
 ];
 
 const activityOptions: SelectOption[] = [
-  { value: '1.2', label: 'Сидячий (мало или совсем нет упражнений)' },
   {
-    value: '1.375',
+    value: ActivityLevel.SEDENTARY,
+    label: 'Сидячий (мало или совсем нет упражнений)',
+  },
+  {
+    value: ActivityLevel.LIGHT,
     label: 'Легкая активность (легкие упражнения/спорт 1-3 дня в неделю)',
   },
   {
-    value: '1.55',
+    value: ActivityLevel.MODERATE,
     label:
       'Умеренная активность (умеренные упражнения/спорт 3-5 дней в неделю)',
   },
   {
-    value: '1.725',
+    value: ActivityLevel.ACTIVE,
     label:
       'Высокая активность (интенсивные упражнения/спорт 6-7 дней в неделю)',
   },
   {
-    value: '1.9',
+    value: ActivityLevel.VERY_ACTIVE,
     label:
       'Очень высокая активность (очень интенсивные упражнения и физическая работа)',
   },
 ];
 
 const goalOptions: SelectOption[] = [
-  { value: 'lose', label: 'Похудеть' },
-  { value: 'maintain', label: 'Поддерживать вес' },
-  { value: 'gain', label: 'Набрать вес' },
+  { value: Goal.LOSE, label: 'Похудеть' },
+  { value: Goal.MAINTAIN, label: 'Поддерживать вес' },
+  { value: Goal.GAIN, label: 'Набрать вес' },
 ];
 
+interface CalculatorFormData {
+  gender: Gender;
+  weight: string;
+  height: string;
+  age: string;
+  activity: ActivityLevel | string;
+  goal: Goal;
+}
+
+interface CalculationResults {
+  bmr: number | null;
+  tdee: number | null;
+  goal: number | null;
+}
+
 export default function CalculatorsPage() {
-  const [formData, setFormData] = useState({
-    gender: 'male',
+  const [formData, setFormData] = useState<CalculatorFormData>({
+    gender: Gender.MALE,
     weight: '',
     height: '',
     age: '',
-    activity: '1.2',
-    goal: 'lose',
+    activity: ActivityLevel.SEDENTARY,
+    goal: Goal.LOSE,
   });
 
-  const [results, setResults] = useState<{
-    bmr: number | null;
-    tdee: number | null;
-    goal: number | null;
-  }>({
+  const [results, setResults] = useState<CalculationResults>({
     bmr: null,
     tdee: null,
     goal: null,
@@ -104,7 +121,7 @@ export default function CalculatorsPage() {
     const age = parseFloat(formData.age);
 
     return calculateBasalMetabolicRate({
-      gender: formData.gender as 'male' | 'female',
+      gender: formData.gender,
       weight,
       height,
       age,
@@ -118,10 +135,7 @@ export default function CalculatorsPage() {
   };
 
   const calculateGoalCalories = (tdee: number) => {
-    return calculateTargetCalories(
-      tdee,
-      formData.goal as 'lose' | 'maintain' | 'gain',
-    );
+    return calculateTargetCalories(tdee, formData.goal);
   };
 
   const validateForm = () => {
@@ -290,11 +304,11 @@ export default function CalculatorsPage() {
                   </Typography>
                   <Typography variant="h5">{results.goal} ккал/день</Typography>
                   <Typography variant="body2" sx={{ mt: 1, opacity: 0.9 }}>
-                    {formData.goal === 'lose' &&
+                    {formData.goal === Goal.LOSE &&
                       'Для постепенного снижения веса (~0.5 кг/неделю)'}
-                    {formData.goal === 'maintain' &&
+                    {formData.goal === Goal.MAINTAIN &&
                       'Для поддержания текущего веса'}
-                    {formData.goal === 'gain' &&
+                    {formData.goal === Goal.GAIN &&
                       'Для постепенного набора веса (~0.5 кг/неделю)'}
                   </Typography>
                 </Paper>
