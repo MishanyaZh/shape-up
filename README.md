@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ShapeUp
 
-## Getting Started
+ShapeUp is an MVP web app for flexible nutrition planning.
 
-First, run the development server:
+## Product Goal
+
+- Calculate BMR and TDEE from user profile.
+- Generate a practical daily nutrition structure.
+- Track eaten food during the day.
+- Show compliance indicators: consumed, remaining, and adherence.
+
+## Stack
+
+- Next.js (App Router)
+- TypeScript (strict)
+- MUI (UI and theming)
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - start development server
+- `npm run build` - production build
+- `npm run start` - run production server
+- `npm run lint` - run eslint
+- `npm run format` - run prettier
 
-## Learn More
+## Current Architecture Direction
 
-To learn more about Next.js, take a look at the following resources:
+- Feature-first modules in `src/features`.
+- Thin route pages in `src/app`.
+- Domain logic moved from pages into feature domain/hooks.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Planned feature layout:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+src/features/
+	calculator/
+	nutrition/
+	tracking/
+```
 
-## Deploy on Vercel
+## Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Local planning docs are intentionally gitignored (`docs/`).
+- Product context exists locally and drives MVP scope.

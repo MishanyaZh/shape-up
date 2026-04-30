@@ -162,38 +162,35 @@ export function calculateMacronutrients(
 }
 
 export const genderOptions = [
-  { value: Gender.MALE, label: 'Мужской' },
-  { value: Gender.FEMALE, label: 'Женский' },
+  { value: Gender.MALE, label: 'Male' },
+  { value: Gender.FEMALE, label: 'Female' },
 ];
 
 export const activityOptions = [
   {
     value: ActivityLevel.SEDENTARY,
-    label: 'Сидячий (мало или совсем нет упражнений)',
+    label: 'Sedentary (little to no exercise)',
   },
   {
     value: ActivityLevel.LIGHT,
-    label: 'Легкая активность (легкие упражнения/спорт 1-3 дня в неделю)',
+    label: 'Light activity (exercise 1-3 days/week)',
   },
   {
     value: ActivityLevel.MODERATE,
-    label:
-      'Умеренная активность (умеренные упражнения/спорт 3-5 дней в неделю)',
+    label: 'Moderate activity (exercise 3-5 days/week)',
   },
   {
     value: ActivityLevel.ACTIVE,
-    label:
-      'Высокая активность (интенсивные упражнения/спорт 6-7 дней в неделю)',
+    label: 'High activity (intense exercise 6-7 days/week)',
   },
   {
     value: ActivityLevel.VERY_ACTIVE,
-    label:
-      'Очень высокая активность (очень интенсивные упражнения и физическая работа)',
+    label: 'Very high activity (intense exercise + physical work)',
   },
 ];
 
 export const goalOptions = [
-  { value: Goal.LOSE, label: 'Похудеть' },
-  { value: Goal.MAINTAIN, label: 'Поддерживать вес' },
-  { value: Goal.GAIN, label: 'Набрать вес' },
+  { value: Goal.LOSE, label: 'Lose Fat' },
+  { value: Goal.MAINTAIN, label: 'Maintain Weight' },
+  { value: Goal.GAIN, label: 'Gain Weight' },
 ];

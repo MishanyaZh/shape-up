@@ -43,6 +43,10 @@ export default function Select<T extends string | number = string>({
         label={label}
         value={value}
         onChange={handleChange}
+        MenuProps={{
+          disableScrollLock: true,
+          ...props.MenuProps,
+        }}
         {...props}
       >
         {options.map((option) => (

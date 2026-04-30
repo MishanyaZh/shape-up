@@ -72,6 +72,8 @@ export default function Home() {
                 icon={<RestaurantIcon fontSize="inherit" color="primary" />}
                 title="Get Your Meal Plan"
                 description="Receive a customized weekly meal plan that matches your dietary preferences and nutritional needs."
+                ctaText="Generate Plan"
+                ctaLink="/nutrition"
               />
             </Box>
             <Box sx={{ width: { xs: '100%', md: '33.33%' } }}>
@@ -79,6 +81,8 @@ export default function Home() {
                 icon={<ShowChartIcon fontSize="inherit" color="primary" />}
                 title="Track Your Progress"
                 description="Log your meals and workouts, track your progress, and adjust your plan as needed."
+                ctaText="Open Tracker"
+                ctaLink="/progress"
               />
             </Box>
           </Stack>
