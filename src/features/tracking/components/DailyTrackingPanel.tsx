@@ -175,7 +175,7 @@ export default function DailyTrackingPanel() {
           remaining={remaining}
         />
 
-        <Card title="Daily Summary">
+        <Card title="Daily Summary" sx={{ mt: 3 }}>
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
             <Chip label={`Adherence ${adherencePercent}%`} color="primary" />
             <Chip

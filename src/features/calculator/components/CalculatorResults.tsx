@@ -83,7 +83,7 @@ function MacroDistributionCard({ results, goal }: CalculatorResultsProps) {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
               {goalHint}
             </Typography>
           </Grid>
@@ -104,7 +104,7 @@ export default function CalculatorResults({
   ) {
     return (
       <Card title="Results">
-        <Typography variant="body1" color="textSecondary" align="center">
+        <Typography variant="body1" color="text.secondary" align="center">
           Fill in the form and press Calculate to see your results.
         </Typography>
       </Card>
@@ -128,7 +128,7 @@ export default function CalculatorResults({
           <Typography variant="h5" color="primary">
             {results.bmr} kcal/day
           </Typography>
-          <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
             Estimated calories your body uses at rest.
           </Typography>
         </Paper>
@@ -139,7 +139,7 @@ export default function CalculatorResults({
           <Typography variant="h5" color="primary">
             {results.tdee} kcal/day
           </Typography>
-          <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
             Estimated calories burned per day including activity.
           </Typography>
         </Paper>

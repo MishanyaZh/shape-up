@@ -13,6 +13,10 @@ import {
 } from '@/features/calculator/domain/calculations';
 import { GeneratedNutritionPlan } from '@/features/nutrition/domain/types';
 import { MealEntry } from '@/shared/domain/models';
+import {
+  parseAppStateFromStorage,
+  serializeAppStateForStorage,
+} from '@/providers/appStateStorage';
 
 interface AppStateContextValue {
   state: AppStateSnapshot;
@@ -27,10 +31,6 @@ interface AppStateContextValue {
 const STORAGE_KEY = 'shapeup.app-state.v1';
 
 const AppStateContext = createContext<AppStateContextValue | null>(null);
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null;
-}
 
 export default function AppStateProvider({
   children,
@@ -48,16 +48,7 @@ export default function AppStateProvider({
         return;
       }
 
-      const parsed: unknown = JSON.parse(persisted);
-      if (!isRecord(parsed)) {
-        setHasHydrated(true);
-        return;
-      }
-
-      setState((current) => ({
-        ...current,
-        ...(parsed as Partial<AppStateSnapshot>),
-      }));
+      setState(parseAppStateFromStorage(persisted));
     } catch {
       // Ignore malformed localStorage payload and continue with defaults.
     } finally {
@@ -70,7 +61,7 @@ export default function AppStateProvider({
       return;
     }
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(STORAGE_KEY, serializeAppStateForStorage(state));
   }, [hasHydrated, state]);
 
   const value = useMemo<AppStateContextValue>(
