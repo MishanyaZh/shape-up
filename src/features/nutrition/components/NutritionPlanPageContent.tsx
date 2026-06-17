@@ -20,6 +20,7 @@ import Select, { SelectOption } from '@/shared/ui/Select';
 import { Goal, GOAL } from '@/features/calculator/domain/calculations';
 import { useNutritionPlanGenerator } from '@/features/nutrition/hooks/useNutritionPlanGenerator';
 import { MealType } from '@/features/nutrition/domain/types';
+import { flexibleNutritionFoundation } from '@/features/nutrition/domain/flexNutritionRules';
 
 const goalOptions: SelectOption<Goal>[] = [
   { value: GOAL.LOSE, label: 'Fat Loss' },
@@ -44,12 +45,20 @@ function OptionList({ title, items }: { title: string; items: string[] }) {
     return null;
   }
 
+  const previewItems = items.slice(0, 6);
+  const remainingCount = items.length - previewItems.length;
+
   return (
     <Box>
       <Typography variant="subtitle2" color="text.secondary">
         {title}
       </Typography>
-      <Typography variant="body2">{items.join(' / ')}</Typography>
+      <Typography variant="body2">{previewItems.join(' / ')}</Typography>
+      {remainingCount > 0 && (
+        <Typography variant="caption" color="text.secondary">
+          +{remainingCount} more options
+        </Typography>
+      )}
     </Box>
   );
 }
@@ -120,6 +129,28 @@ export default function NutritionPlanPageContent() {
                 </Button>
               </Box>
             </form>
+          </Card>
+
+          <Card title="Flexible Rules" sx={{ mt: 3 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Up to {flexibleNutritionFoundation.maxProductsPerSlot} products
+              per slot and 50/50 split are supported.
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Meal rotation, meal merge, and slot move between meals are
+              allowed.
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Main rule: do not exceed daily calories and macro targets.
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Coffee, tea, spices, and zero-calorie drinks are allowed.
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Weekly free meal: 1 time/week, up to{' '}
+              {flexibleNutritionFoundation.weeklyFreeMeal.maxDurationMinutes}{' '}
+              minutes.
+            </Typography>
           </Card>
         </Grid>
 

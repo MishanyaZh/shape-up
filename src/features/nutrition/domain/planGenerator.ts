@@ -19,6 +19,8 @@ const mealDistribution: Record<3 | 4, number[]> = {
   4: [0.25, 0.35, 0.25, 0.15],
 };
 
+const MAX_OPTIONS_PER_CATEGORY = 6;
+
 function createTargetMacros(calories: number, goal: Goal): NutritionTargets {
   const profile =
     goal === GOAL.LOSE
@@ -58,12 +60,20 @@ function getOptionsByCategory(
   mealType: MealType,
   categoryId: string,
 ): NutritionFoodOption[] {
-  return foods
-    .filter(
-      (food) =>
-        food.categoryId === categoryId && food.mealTypes.includes(mealType),
-    )
-    .slice(0, 2);
+  const matchingOptions = foods.filter(
+    (food) =>
+      food.categoryId === categoryId && food.mealTypes.includes(mealType),
+  );
+
+  if (matchingOptions.length <= MAX_OPTIONS_PER_CATEGORY) {
+    return matchingOptions;
+  }
+
+  const randomizedOptions = [...matchingOptions].sort(
+    () => Math.random() - 0.5,
+  );
+
+  return randomizedOptions.slice(0, MAX_OPTIONS_PER_CATEGORY);
 }
 
 function createMealPlan(
