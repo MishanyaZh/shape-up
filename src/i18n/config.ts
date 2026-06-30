@@ -2,14 +2,26 @@ import i18next from 'i18next';
 import en from '@/i18n/messages/en.json';
 import uk from '@/i18n/messages/uk.json';
 import pl from '@/i18n/messages/pl.json';
+import catalogEn from '@/i18n/messages/catalog/en.json';
+import catalogUk from '@/i18n/messages/catalog/uk.json';
+import catalogPl from '@/i18n/messages/catalog/pl.json';
 
 export type I18nLocale = 'en' | 'uk' | 'pl';
 export type LocaleMessages = typeof en;
 
 const i18nResources = {
-  en: { translation: en },
-  uk: { translation: uk },
-  pl: { translation: pl },
+  en: {
+    translation: en,
+    catalog: catalogEn,
+  },
+  uk: {
+    translation: uk,
+    catalog: catalogUk,
+  },
+  pl: {
+    translation: pl,
+    catalog: catalogPl,
+  },
 } as const;
 
 if (!i18next.isInitialized) {
@@ -17,6 +29,8 @@ if (!i18next.isInitialized) {
     resources: i18nResources,
     lng: 'en',
     fallbackLng: 'en',
+    defaultNS: 'translation',
+    ns: ['translation', 'catalog'],
     interpolation: {
       escapeValue: false,
     },
