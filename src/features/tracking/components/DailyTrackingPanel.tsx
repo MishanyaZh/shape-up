@@ -17,28 +17,12 @@ import Paper from '@mui/material/Paper';
 import Select, { SelectOption } from '@/shared/ui/Select';
 import { useDailyTracking } from '../hooks/useDailyTracking';
 import ComplianceIndicatorCard from '@/features/tracking/components/ComplianceIndicatorCard';
-import {
-  foodCategoryOptions,
-  mealTypeOptions,
-} from '@/features/tracking/data/options';
-import { MealType } from '@/features/nutrition/domain/types';
-
-const mealTypeLabelMap = mealTypeOptions.reduce<Record<string, string>>(
-  (accumulator, option) => ({
-    ...accumulator,
-    [option.value]: option.label,
-  }),
-  {},
-);
-
-const nutritionMealLabels: Record<MealType, string> = {
-  breakfast: 'Breakfast',
-  lunch: 'Lunch',
-  dinner: 'Dinner',
-  snack: 'Snack',
-};
+import { MEAL_TYPE, MealType } from '@/features/nutrition/domain/types';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
 export default function DailyTrackingPanel() {
+  const { messages } = useUiPreferences();
+
   const {
     formState,
     plan,
@@ -49,11 +33,47 @@ export default function DailyTrackingPanel() {
     calorieAdherence,
     macroAdherence,
     adherencePercent,
+    foodCategories,
     availableFoods,
     handleFormSelectChange,
     handleAddEntry,
     handleRemoveEntry,
   } = useDailyTracking();
+
+  const mealTypeOptions: SelectOption<MealType>[] = [
+    {
+      value: MEAL_TYPE.BREAKFAST,
+      label: messages.tracking.mealTypeLabels.breakfast,
+    },
+    { value: MEAL_TYPE.LUNCH, label: messages.tracking.mealTypeLabels.lunch },
+    {
+      value: MEAL_TYPE.DINNER,
+      label: messages.tracking.mealTypeLabels.dinner,
+    },
+    { value: MEAL_TYPE.SNACK, label: messages.tracking.mealTypeLabels.snack },
+  ];
+
+  const mealTypeLabelMap = mealTypeOptions.reduce<Record<string, string>>(
+    (accumulator, option) => ({
+      ...accumulator,
+      [option.value]: option.label,
+    }),
+    {},
+  );
+
+  const nutritionMealLabels: Record<MealType, string> = {
+    breakfast: messages.tracking.mealTypeLabels.breakfast,
+    lunch: messages.tracking.mealTypeLabels.lunch,
+    dinner: messages.tracking.mealTypeLabels.dinner,
+    snack: messages.tracking.mealTypeLabels.snack,
+  };
+
+  const foodCategoryOptions: SelectOption<string>[] = foodCategories.map(
+    (category) => ({
+      value: category.id,
+      label: category.name,
+    }),
+  );
 
   const foodOptions: SelectOption<string>[] = availableFoods.map((food) => ({
     value: food.id,
@@ -70,49 +90,51 @@ export default function DailyTrackingPanel() {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={5}>
-        <Card title="Daily Targets">
+        <Card title={messages.tracking.dailyTargets}>
           <Box sx={{ display: 'grid', gap: 1 }}>
             <Typography variant="body1">
-              Calories: <strong>{target.calories} kcal</strong>
+              {messages.common.calories}:{' '}
+              <strong>{target.calories} kcal</strong>
             </Typography>
             <Typography variant="body1">
-              Protein: <strong>{target.proteinGrams} g</strong>
+              {messages.common.protein}:{' '}
+              <strong>{target.proteinGrams} g</strong>
             </Typography>
             <Typography variant="body1">
-              Fats: <strong>{target.fatGrams} g</strong>
+              {messages.common.fats}: <strong>{target.fatGrams} g</strong>
             </Typography>
             <Typography variant="body1">
-              Carbs: <strong>{target.carbsGrams} g</strong>
+              {messages.common.carbs}: <strong>{target.carbsGrams} g</strong>
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              Targets are synced from calculator results.
+              {messages.tracking.syncedFromCalculator}
             </Typography>
           </Box>
         </Card>
 
-        <Card title="Add Food Entry" sx={{ mt: 3 }}>
+        <Card title={messages.tracking.addFoodEntry} sx={{ mt: 3 }}>
           <Box sx={{ display: 'grid', gap: 2 }}>
             <Select
-              label="Meal Type"
+              label={messages.tracking.mealType}
               value={formState.mealType}
               options={mealTypeOptions}
               onChange={handleFormSelectChange('mealType')}
             />
             <Select
-              label="Category"
+              label={messages.tracking.category}
               value={formState.categoryId}
               options={foodCategoryOptions}
               onChange={handleFormSelectChange('categoryId')}
             />
             <Select
-              label="Food"
+              label={messages.tracking.food}
               value={formState.foodId}
               options={foodOptions}
               onChange={handleFormSelectChange('foodId')}
               disabled={foodOptions.length === 0}
             />
             <Select
-              label="Portions"
+              label={messages.tracking.portions}
               value={formState.quantity}
               options={[
                 { value: '0.5', label: '0.5' },
@@ -127,18 +149,18 @@ export default function DailyTrackingPanel() {
               variant="contained"
               disabled={!canAddEntry}
             >
-              Add Entry
+              {messages.tracking.addEntry}
             </Button>
           </Box>
         </Card>
       </Grid>
 
       <Grid item xs={12} md={7}>
-        <Card title="Daily Structure" sx={{ mb: 3 }}>
+        <Card title={messages.tracking.dailyStructure} sx={{ mb: 3 }}>
           {!plan && (
             <Box>
               <Typography color="text.secondary" sx={{ mb: 2 }}>
-                No plan generated yet. Create your nutrition structure first.
+                {messages.tracking.noPlan}
               </Typography>
               <Button
                 component={Link}
@@ -146,7 +168,7 @@ export default function DailyTrackingPanel() {
                 variant="outlined"
                 startIcon={<ArrowForwardIcon />}
               >
-                Open Nutrition Plan Generator
+                {messages.tracking.openNutritionGenerator}
               </Button>
             </Box>
           )}
@@ -175,35 +197,38 @@ export default function DailyTrackingPanel() {
           remaining={remaining}
         />
 
-        <Card title="Daily Summary" sx={{ mt: 3 }}>
+        <Card title={messages.tracking.dailySummary} sx={{ mt: 3 }}>
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
-            <Chip label={`Adherence ${adherencePercent}%`} color="primary" />
             <Chip
-              label={`Consumed ${consumed.calories} kcal`}
+              label={`${messages.tracking.adherence} ${adherencePercent}%`}
+              color="primary"
+            />
+            <Chip
+              label={`${messages.tracking.consumed} ${consumed.calories} kcal`}
               color="success"
             />
             <Chip
-              label={`Remaining ${remaining.calories} kcal`}
+              label={`${messages.tracking.remaining} ${remaining.calories} kcal`}
               color="warning"
             />
           </Box>
 
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Target: P {target.proteinGrams}g | F {target.fatGrams}g | C{' '}
-            {target.carbsGrams}g
+            {messages.tracking.targetLabel}: P {target.proteinGrams}g | F{' '}
+            {target.fatGrams}g | C {target.carbsGrams}g
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Consumed: P {consumed.proteinGrams}g | F {consumed.fatGrams}g | C{' '}
-            {consumed.carbsGrams}g
+            {messages.tracking.consumedLabel}: P {consumed.proteinGrams}g | F{' '}
+            {consumed.fatGrams}g | C {consumed.carbsGrams}g
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Remaining: P {remaining.proteinGrams}g | F {remaining.fatGrams}g | C{' '}
-            {remaining.carbsGrams}g
+            {messages.tracking.remainingLabel}: P {remaining.proteinGrams}g | F{' '}
+            {remaining.fatGrams}g | C {remaining.carbsGrams}g
           </Typography>
 
           {entries.length === 0 && (
             <Typography color="text.secondary">
-              No entries yet. Add food to start tracking.
+              {messages.tracking.noEntries}
             </Typography>
           )}
 
@@ -227,7 +252,8 @@ export default function DailyTrackingPanel() {
                         <Typography variant="body2" color="text.secondary">
                           {mealTypeLabelMap[item.entry.mealType] ??
                             item.entry.mealType}{' '}
-                          | {item.entry.quantity} portion(s)
+                          | {item.entry.quantity}{' '}
+                          {messages.tracking.portionsUnit}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                           {`${item.totals.calories} kcal | P ${item.totals.proteinGrams}g | F ${item.totals.fatGrams}g | C ${item.totals.carbsGrams}g`}
@@ -238,7 +264,7 @@ export default function DailyTrackingPanel() {
                         color="secondary"
                         onClick={() => handleRemoveEntry(item.entry.id)}
                       >
-                        Remove
+                        {messages.tracking.remove}
                       </Button>
                     </Box>
                   </ListItem>

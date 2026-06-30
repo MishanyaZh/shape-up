@@ -17,9 +17,11 @@ const StyledCard = styled(Card)(({ theme }) => ({
   transition: 'transform 0.3s ease-in-out',
   height: '100%',
   '& .MuiCardContent-root': {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: '10px',
     padding: theme.spacing(4),
   },
@@ -45,7 +47,13 @@ export default function FeatureCard({
   return (
     <StyledCard title={title}>
       <IconWrapper>{icon}</IconWrapper>
-      <Typography variant="h5" component="h3" gutterBottom align="center">
+      <Typography
+        variant="h5"
+        component="h3"
+        gutterBottom
+        align="center"
+        textAlign="center"
+      >
         {title}
       </Typography>
       <Typography variant="body1" color="text.secondary" align="center">

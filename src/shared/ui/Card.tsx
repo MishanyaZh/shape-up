@@ -13,7 +13,12 @@ export default function Card({ title, children, ...props }: CustomCardProps) {
   return (
     <MuiCard sx={{ p: 2, borderRadius: 2, boxShadow: 3 }} {...props}>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography
+          variant="h6"
+          gutterBottom
+          textAlign="center"
+          fontWeight="bold"
+        >
           {title}
         </Typography>
         {children}

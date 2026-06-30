@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import ThemeRegistry from '../providers/ThemeRegistry';
 import AppStateProvider from '@/providers/AppStateProvider';
+import UiPreferencesProvider from '@/providers/UiPreferencesProvider';
+import AppShell from '@/shared/ui/AppShell';
 import './globals.css';
 
 const geistSans = Geist({
@@ -31,9 +33,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ThemeRegistry>
-          <AppStateProvider>{children}</AppStateProvider>
-        </ThemeRegistry>
+        <UiPreferencesProvider>
+          <ThemeRegistry>
+            <AppStateProvider>
+              <AppShell>{children}</AppShell>
+            </AppStateProvider>
+          </ThemeRegistry>
+        </UiPreferencesProvider>
       </body>
     </html>
   );

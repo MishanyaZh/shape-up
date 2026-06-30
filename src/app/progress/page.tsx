@@ -5,8 +5,11 @@ import { Box, Container, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from '@/shared/ui/Button';
 import DailyTrackingPanel from '@/features/tracking/components/DailyTrackingPanel';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
 export default function Progress() {
+  const { messages } = useUiPreferences();
+
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
@@ -17,16 +20,16 @@ export default function Progress() {
             startIcon={<ArrowBackIcon />}
             sx={{ mr: 1 }}
           >
-            Back
+            {messages.common.back}
           </Button>
         </Link>
         <Typography variant="h4" component="h1">
-          Daily Progress
+          {messages.progressPage.title}
         </Typography>
       </Box>
 
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Track meals, compare with targets, and monitor daily adherence.
+        {messages.progressPage.description}
       </Typography>
 
       <DailyTrackingPanel />

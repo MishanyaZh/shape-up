@@ -7,8 +7,11 @@ import Button from '@/shared/ui/Button';
 import CalculatorForm from '@/features/calculator/components/CalculatorForm';
 import CalculatorResults from '@/features/calculator/components/CalculatorResults';
 import { useCalculator } from '@/features/calculator/hooks/useCalculator';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
 export default function CalculatorPageContent() {
+  const { messages } = useUiPreferences();
+
   const {
     formData,
     errors,
@@ -28,7 +31,7 @@ export default function CalculatorPageContent() {
             startIcon={<ArrowBackIcon />}
             sx={{ mr: 1 }}
           >
-            Back
+            {messages.common.back}
           </Button>
         </Link>
         <Typography
@@ -37,13 +40,12 @@ export default function CalculatorPageContent() {
           align="center"
           sx={{ flexGrow: 1 }}
         >
-          BMR and TDEE Calculator
+          {messages.calculator.title}
         </Typography>
       </Box>
 
       <Typography variant="body1" align="center" paragraph>
-        Calculate your Basal Metabolic Rate (BMR) and Total Daily Energy
-        Expenditure (TDEE) to estimate your daily calorie needs.
+        {messages.calculator.description}
       </Typography>
 
       <Grid container spacing={4}>

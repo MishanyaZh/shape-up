@@ -8,6 +8,7 @@ import {
   Goal,
   Macronutrient,
 } from '@/features/calculator/domain/calculations';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
 interface CalculatorResultsProps {
   results: CalculationResults;
@@ -40,44 +41,47 @@ function MacroBox({ title, macro, bgColor }: MacroBoxProps) {
 }
 
 function MacroDistributionCard({ results, goal }: CalculatorResultsProps) {
+  const { messages } = useUiPreferences();
+
   if (!results.macros || results.goalCalories === null) {
     return null;
   }
 
   const goalHint =
     goal === GOAL.LOSE
-      ? 'During fat loss, higher protein intake helps preserve lean muscle mass.'
+      ? messages.calculator.results.macroGoalHint.lose
       : goal === GOAL.GAIN
-        ? 'Muscle gain requires a calorie surplus and sufficient daily protein intake.'
-        : 'A balanced intake helps maintain body weight and overall well-being.';
+        ? messages.calculator.results.macroGoalHint.gain
+        : messages.calculator.results.macroGoalHint.maintain;
 
   return (
-    <Card title="Recommended Macronutrient Split">
+    <Card title={messages.calculator.results.macrosTitle}>
       <Paper elevation={1} sx={{ p: 2, mb: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="subtitle1">
-              Daily target: <strong>{results.goalCalories} kcal</strong>
+              {messages.calculator.results.dailyTarget}:{' '}
+              <strong>{results.goalCalories} kcal</strong>
             </Typography>
             <Divider sx={{ my: 1 }} />
           </Grid>
           <Grid item xs={12} sm={4}>
             <MacroBox
-              title="Protein"
+              title={messages.common.protein}
               macro={results.macros.protein}
               bgColor="success.light"
             />
           </Grid>
           <Grid item xs={12} sm={4}>
             <MacroBox
-              title="Fats"
+              title={messages.common.fats}
               macro={results.macros.fats}
               bgColor="warning.light"
             />
           </Grid>
           <Grid item xs={12} sm={4}>
             <MacroBox
-              title="Carbs"
+              title={messages.common.carbs}
               macro={results.macros.carbs}
               bgColor="info.light"
             />
@@ -97,15 +101,17 @@ export default function CalculatorResults({
   results,
   goal,
 }: CalculatorResultsProps) {
+  const { messages } = useUiPreferences();
+
   if (
     results.bmr === null ||
     results.tdee === null ||
     results.goalCalories === null
   ) {
     return (
-      <Card title="Results">
+      <Card title={messages.calculator.results.title}>
         <Typography variant="body1" color="text.secondary" align="center">
-          Fill in the form and press Calculate to see your results.
+          {messages.calculator.results.empty}
         </Typography>
       </Card>
     );
@@ -113,34 +119,34 @@ export default function CalculatorResults({
 
   const goalHint =
     goal === GOAL.LOSE
-      ? 'For gradual fat loss (~0.5 kg/week)'
+      ? messages.calculator.results.goalHint.lose
       : goal === GOAL.GAIN
-        ? 'For gradual weight gain (~0.5 kg/week)'
-        : 'For weight maintenance';
+        ? messages.calculator.results.goalHint.gain
+        : messages.calculator.results.goalHint.maintain;
 
   return (
     <>
-      <Card title="Results">
+      <Card title={messages.calculator.results.title}>
         <Paper elevation={1} sx={{ p: 2, mb: 2 }}>
           <Typography variant="subtitle1" gutterBottom>
-            Basal Metabolic Rate (BMR)
+            {messages.calculator.results.bmr}
           </Typography>
           <Typography variant="h5" color="primary">
             {results.bmr} kcal/day
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            Estimated calories your body uses at rest.
+            {messages.calculator.results.bmrHint}
           </Typography>
         </Paper>
         <Paper elevation={1} sx={{ p: 2, mb: 2 }}>
           <Typography variant="subtitle1" gutterBottom>
-            Total Daily Energy Expenditure (TDEE)
+            {messages.calculator.results.tdee}
           </Typography>
           <Typography variant="h5" color="primary">
             {results.tdee} kcal/day
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            Estimated calories burned per day including activity.
+            {messages.calculator.results.tdeeHint}
           </Typography>
         </Paper>
         <Paper
@@ -148,7 +154,7 @@ export default function CalculatorResults({
           sx={{ p: 2, bgcolor: 'primary.light', color: 'white' }}
         >
           <Typography variant="subtitle1" gutterBottom>
-            Recommended Calorie Intake
+            {messages.calculator.results.recommendedIntake}
           </Typography>
           <Typography variant="h5">{results.goalCalories} kcal/day</Typography>
           <Typography variant="body2" sx={{ mt: 1, opacity: 0.9 }}>
@@ -162,7 +168,7 @@ export default function CalculatorResults({
       <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
         <Link href="/nutrition" passHref style={{ textDecoration: 'none' }}>
           <Button variant="contained" color="secondary">
-            Go To Nutrition Plan Generator
+            {messages.calculator.results.goToNutrition}
           </Button>
         </Link>
       </Box>
