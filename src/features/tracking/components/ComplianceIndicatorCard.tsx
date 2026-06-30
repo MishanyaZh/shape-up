@@ -74,7 +74,7 @@ export default function ComplianceIndicatorCard({
       <Box sx={{ display: 'grid', gap: 1.5, mb: 2 }}>
         <MetricBar
           label={messages.compliance.calories}
-          value={calorieAdherence}
+          value={Number(calorieAdherence.toFixed(0))}
         />
         <MetricBar label={messages.compliance.macros} value={macroAdherence} />
       </Box>

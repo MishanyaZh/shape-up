@@ -33,6 +33,8 @@ if (!i18next.isInitialized) {
     ns: ['translation', 'catalog'],
     interpolation: {
       escapeValue: false,
+      prefix: '{',
+      suffix: '}',
     },
     returnNull: false,
   });

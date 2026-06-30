@@ -58,7 +58,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         }}
       >
         <Container maxWidth="lg">
-          <Toolbar sx={{ px: { xs: 0, md: 0 } }}>
+          <Toolbar
+            sx={{ px: { xs: 0, md: 0 }, justifyContent: 'space-between' }}
+          >
             <Typography
               variant="h6"
               component={Link}
