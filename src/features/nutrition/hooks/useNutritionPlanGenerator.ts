@@ -1,13 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { generateNutritionPlan } from '@/features/nutrition/domain/planGenerator';
 import {
-  nutritionFoodCategories,
-  nutritionFoodOptions,
-} from '@/features/nutrition/data/catalog';
+  getLocalizedNutritionFoodCategories,
+  getLocalizedNutritionFoodOptions,
+  localizeFoodLabelById,
+} from '@/features/nutrition/data/catalogLocalization';
+import { NutritionFoodOption } from '@/features/nutrition/domain/types';
 import { useAppState } from '@/providers/AppStateProvider';
 import { NutritionPlanFormState } from '@/shared/state/appStateTypes';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
 interface NutritionPlanFormErrors {
   targetCalories: boolean;
@@ -18,12 +21,45 @@ const initialErrors: NutritionPlanFormErrors = {
 };
 
 export function useNutritionPlanGenerator() {
+  const { locale } = useUiPreferences();
   const { state, setNutritionPlanFormState, setGeneratedNutritionPlan } =
     useAppState();
   const [errors, setErrors] = useState<NutritionPlanFormErrors>(initialErrors);
 
   const formState = state.nutritionPlanFormState;
-  const plan = state.generatedNutritionPlan;
+
+  const localizedCategories = useMemo(
+    () => getLocalizedNutritionFoodCategories(locale),
+    [locale],
+  );
+
+  const localizedFoods = useMemo(
+    () => getLocalizedNutritionFoodOptions(locale),
+    [locale],
+  );
+
+  const plan = useMemo(() => {
+    if (!state.generatedNutritionPlan) {
+      return null;
+    }
+
+    const localizeOptions = (options: NutritionFoodOption[]) =>
+      options.map((option) => ({
+        ...option,
+        name: localizeFoodLabelById(locale, option.id, option.name),
+      }));
+
+    return {
+      ...state.generatedNutritionPlan,
+      meals: state.generatedNutritionPlan.meals.map((meal) => ({
+        ...meal,
+        proteinOptions: localizeOptions(meal.proteinOptions),
+        carbOptions: localizeOptions(meal.carbOptions),
+        fatOptions: localizeOptions(meal.fatOptions),
+        extraOptions: localizeOptions(meal.extraOptions),
+      })),
+    };
+  }, [locale, state.generatedNutritionPlan]);
 
   const handleSelectChange =
     <K extends keyof NutritionPlanFormState>(field: K) =>
@@ -60,8 +96,8 @@ export function useNutritionPlanGenerator() {
         targetCalories,
         mealsPerDay,
         catalog: {
-          categories: nutritionFoodCategories,
-          foods: nutritionFoodOptions,
+          categories: localizedCategories,
+          foods: localizedFoods,
         },
       }),
     );

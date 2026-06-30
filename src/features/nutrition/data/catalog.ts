@@ -8,7 +8,7 @@ export const nutritionFoodCategories: FoodCategory[] = [
   { id: 'protein', name: 'Protein', defaultPortionGrams: 150 },
   { id: 'carbs', name: 'Carbs', defaultPortionGrams: 150 },
   { id: 'fats', name: 'Fats', defaultPortionGrams: 20 },
-  { id: 'extras', name: 'Extras', defaultPortionGrams: 100 },
+  { id: 'extras', name: 'Custom', defaultPortionGrams: 50 },
 ];
 
 export const nutritionFoodOptions: NutritionFoodOption[] = [
@@ -652,7 +652,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'salad-mix',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Salad Mix',
     calories: 35,
     proteinGrams: 2,
@@ -663,7 +663,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'sauerkraut',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Sauerkraut',
     calories: 55,
     proteinGrams: 2,
@@ -674,7 +674,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'mixed-greens',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Mixed Greens',
     calories: 40,
     proteinGrams: 3,
@@ -685,7 +685,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'mushrooms',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Mushrooms',
     calories: 65,
     proteinGrams: 8,
@@ -696,7 +696,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'broccoli',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Broccoli',
     calories: 95,
     proteinGrams: 8,
@@ -707,7 +707,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'cucumber-tomato-salad',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Cucumber Tomato Salad',
     calories: 60,
     proteinGrams: 2,
@@ -718,7 +718,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'mixed-vegetables',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Mixed Vegetables',
     calories: 90,
     proteinGrams: 4,
@@ -729,7 +729,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'berries',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Berries',
     calories: 60,
     proteinGrams: 1,
@@ -740,7 +740,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'seasonal-fruits',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Seasonal Fruits',
     calories: 220,
     proteinGrams: 3,
@@ -751,7 +751,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'apple',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Apple',
     calories: 80,
     proteinGrams: 0,
@@ -762,7 +762,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'orange',
-    categoryId: 'extras',
+    categoryId: 'carbs',
     name: 'Orange',
     calories: 85,
     proteinGrams: 2,
@@ -773,7 +773,7 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   },
   {
     id: 'nuts-and-seeds-mix',
-    categoryId: 'extras',
+    categoryId: 'fats',
     name: 'Nuts and Seeds Mix',
     calories: 300,
     proteinGrams: 10,
@@ -785,23 +785,33 @@ export const nutritionFoodOptions: NutritionFoodOption[] = [
   {
     id: 'treat-choice',
     categoryId: 'extras',
-    name: 'Treat Choice',
-    calories: 350,
-    proteinGrams: 4,
-    fatGrams: 15,
-    carbsGrams: 50,
-    portionGrams: 110,
-    mealTypes: [MEAL_TYPE.SNACK, MEAL_TYPE.DINNER],
+    name: 'Custom Treat (50 g)',
+    calories: 180,
+    proteinGrams: 2,
+    fatGrams: 8,
+    carbsGrams: 24,
+    portionGrams: 50,
+    mealTypes: [
+      MEAL_TYPE.BREAKFAST,
+      MEAL_TYPE.LUNCH,
+      MEAL_TYPE.DINNER,
+      MEAL_TYPE.SNACK,
+    ],
   },
   {
     id: 'snack-choice',
     categoryId: 'extras',
-    name: 'Snack Choice',
-    calories: 290,
-    proteinGrams: 6,
-    fatGrams: 12,
-    carbsGrams: 38,
-    portionGrams: 110,
-    mealTypes: [MEAL_TYPE.SNACK],
+    name: 'Custom Food (50 g)',
+    calories: 140,
+    proteinGrams: 3,
+    fatGrams: 5,
+    carbsGrams: 20,
+    portionGrams: 50,
+    mealTypes: [
+      MEAL_TYPE.BREAKFAST,
+      MEAL_TYPE.LUNCH,
+      MEAL_TYPE.DINNER,
+      MEAL_TYPE.SNACK,
+    ],
   },
 ];

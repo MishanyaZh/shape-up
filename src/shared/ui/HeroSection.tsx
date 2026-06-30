@@ -13,7 +13,8 @@ interface HeroSectionProps {
 }
 
 const HeroContainer = styled(Box)(({ theme }) => ({
-  backgroundImage: 'linear-gradient(135deg, #6B73FF 0%, #000DFF 100%)',
+  backgroundImage:
+    'linear-gradient(115deg, rgba(15, 118, 110, 0.96) 0%, rgba(14, 116, 144, 0.95) 45%, rgba(234, 88, 12, 0.93) 100%)',
   color: 'white',
   padding: theme.spacing(10, 0),
   borderRadius: theme.shape.borderRadius,
@@ -27,8 +28,9 @@ const HeroContainer = styled(Box)(({ theme }) => ({
     right: 0,
     bottom: 0,
     left: 0,
-    background: 'url("/hero-pattern.jpg") repeat bottom',
-    opacity: 0.1,
+    background:
+      'radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2), transparent 34%), radial-gradient(circle at 90% 85%, rgba(255, 255, 255, 0.12), transparent 38%)',
+    opacity: 0.95,
   },
 }));
 

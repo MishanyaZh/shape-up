@@ -21,26 +21,17 @@ import { Goal, GOAL } from '@/features/calculator/domain/calculations';
 import { useNutritionPlanGenerator } from '@/features/nutrition/hooks/useNutritionPlanGenerator';
 import { MealType } from '@/features/nutrition/domain/types';
 import { flexibleNutritionFoundation } from '@/features/nutrition/domain/flexNutritionRules';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
-const goalOptions: SelectOption<Goal>[] = [
-  { value: GOAL.LOSE, label: 'Fat Loss' },
-  { value: GOAL.MAINTAIN, label: 'Maintenance' },
-  { value: GOAL.GAIN, label: 'Muscle Gain' },
-];
-
-const mealsPerDayOptions: SelectOption<'3' | '4'>[] = [
-  { value: '3', label: '3 meals per day' },
-  { value: '4', label: '4 meals per day' },
-];
-
-const mealTypeLabels: Record<MealType, string> = {
-  breakfast: 'Breakfast',
-  lunch: 'Lunch',
-  dinner: 'Dinner',
-  snack: 'Snack',
-};
-
-function OptionList({ title, items }: { title: string; items: string[] }) {
+function OptionList({
+  title,
+  items,
+  moreOptionsLabel,
+}: {
+  title: string;
+  items: string[];
+  moreOptionsLabel: string;
+}) {
   if (items.length === 0) {
     return null;
   }
@@ -56,7 +47,7 @@ function OptionList({ title, items }: { title: string; items: string[] }) {
       <Typography variant="body2">{previewItems.join(' / ')}</Typography>
       {remainingCount > 0 && (
         <Typography variant="caption" color="text.secondary">
-          +{remainingCount} more options
+          +{remainingCount} {moreOptionsLabel}
         </Typography>
       )}
     </Box>
@@ -64,6 +55,8 @@ function OptionList({ title, items }: { title: string; items: string[] }) {
 }
 
 export default function NutritionPlanPageContent() {
+  const { messages } = useUiPreferences();
+
   const {
     formState,
     errors,
@@ -72,6 +65,24 @@ export default function NutritionPlanPageContent() {
     handleCaloriesChange,
     handleSubmit,
   } = useNutritionPlanGenerator();
+
+  const goalOptions: SelectOption<Goal>[] = [
+    { value: GOAL.LOSE, label: messages.nutrition.goalOptions.lose },
+    { value: GOAL.MAINTAIN, label: messages.nutrition.goalOptions.maintain },
+    { value: GOAL.GAIN, label: messages.nutrition.goalOptions.gain },
+  ];
+
+  const mealsPerDayOptions: SelectOption<'3' | '4'>[] = [
+    { value: '3', label: messages.nutrition.mealsPerDayOptions.three },
+    { value: '4', label: messages.nutrition.mealsPerDayOptions.four },
+  ];
+
+  const mealTypeLabels: Record<MealType, string> = {
+    breakfast: messages.nutrition.mealTypeLabels.breakfast,
+    lunch: messages.nutrition.mealTypeLabels.lunch,
+    dinner: messages.nutrition.mealTypeLabels.dinner,
+    snack: messages.nutrition.mealTypeLabels.snack,
+  };
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -83,41 +94,45 @@ export default function NutritionPlanPageContent() {
             startIcon={<ArrowBackIcon />}
             sx={{ mr: 1 }}
           >
-            Back
+            {messages.common.back}
           </Button>
         </Link>
         <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
-          Nutrition Plan Generator
+          {messages.nutrition.title}
         </Typography>
       </Box>
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
-          <Card title="Plan Inputs">
+          <Card title={messages.nutrition.planInputs}>
             <form onSubmit={handleSubmit}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <Input
-                  label="Target Calories"
+                  label={messages.nutrition.targetCalories}
                   value={formState.targetCalories}
                   onChange={handleCaloriesChange}
                   error={errors.targetCalories}
-                  helperText={errors.targetCalories ? 'Required field' : ''}
+                  helperText={
+                    errors.targetCalories
+                      ? messages.nutrition.requiredField
+                      : ''
+                  }
                   InputProps={{ inputProps: { min: 1200, max: 5000 } }}
                 />
                 <Select
-                  label="Goal"
+                  label={messages.nutrition.goal}
                   value={formState.goal}
                   options={goalOptions}
                   onChange={handleSelectChange('goal')}
                 />
                 <Select
-                  label="Meals Per Day"
+                  label={messages.nutrition.mealsPerDay}
                   value={formState.mealsPerDay}
                   options={mealsPerDayOptions}
                   onChange={handleSelectChange('mealsPerDay')}
                 />
                 <Button type="submit" variant="contained">
-                  Generate Plan
+                  {messages.nutrition.generatePlan}
                 </Button>
                 <Button
                   component={Link}
@@ -125,40 +140,44 @@ export default function NutritionPlanPageContent() {
                   variant="outlined"
                   endIcon={<ArrowForwardIcon />}
                 >
-                  Open Daily Progress
+                  {messages.nutrition.openDailyProgress}
                 </Button>
               </Box>
             </form>
           </Card>
 
-          <Card title="Flexible Rules" sx={{ mt: 3 }}>
+          <Card title={messages.nutrition.flexibleRulesTitle} sx={{ mt: 3 }}>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              Up to {flexibleNutritionFoundation.maxProductsPerSlot} products
-              per slot and 50/50 split are supported.
+              {messages.nutrition.flexibleRules.split.replace(
+                '2',
+                String(flexibleNutritionFoundation.maxProductsPerSlot),
+              )}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              Meal rotation, meal merge, and slot move between meals are
-              allowed.
+              {messages.nutrition.flexibleRules.rotation}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              Main rule: do not exceed daily calories and macro targets.
+              {messages.nutrition.flexibleRules.limit}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              Coffee, tea, spices, and zero-calorie drinks are allowed.
+              {messages.nutrition.flexibleRules.beverages}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Weekly free meal: 1 time/week, up to{' '}
-              {flexibleNutritionFoundation.weeklyFreeMeal.maxDurationMinutes}{' '}
-              minutes.
+              {messages.nutrition.flexibleRules.freeMeal.replace(
+                '60',
+                String(
+                  flexibleNutritionFoundation.weeklyFreeMeal.maxDurationMinutes,
+                ),
+              )}
             </Typography>
           </Card>
         </Grid>
 
         <Grid item xs={12} md={8}>
-          <Card title="Daily Structure">
+          <Card title={messages.nutrition.dailyStructure}>
             {!plan && (
               <Typography color="text.secondary">
-                Set your target and generate a flexible meal structure.
+                {messages.nutrition.emptyState}
               </Typography>
             )}
 
@@ -166,11 +185,13 @@ export default function NutritionPlanPageContent() {
               <Box>
                 <Paper sx={{ p: 2, mb: 2 }}>
                   <Typography variant="subtitle1">
-                    Daily Target: <strong>{plan.targets.calories} kcal</strong>
+                    {messages.nutrition.dailyTarget}:{' '}
+                    <strong>{plan.targets.calories} kcal</strong>
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Protein {plan.targets.proteinGrams}g | Fats{' '}
-                    {plan.targets.fatGrams}g | Carbs {plan.targets.carbsGrams}g
+                    {messages.common.protein} {plan.targets.proteinGrams}g |{' '}
+                    {messages.common.fats} {plan.targets.fatGrams}g |{' '}
+                    {messages.common.carbs} {plan.targets.carbsGrams}g
                   </Typography>
                 </Paper>
 
@@ -191,28 +212,32 @@ export default function NutritionPlanPageContent() {
                         <Grid container spacing={1.5}>
                           <Grid item xs={12} sm={6}>
                             <OptionList
-                              title="Protein"
+                              title={messages.nutrition.optionTitles.protein}
                               items={meal.proteinOptions.map(
                                 (item) => item.name,
                               )}
+                              moreOptionsLabel={messages.nutrition.moreOptions}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <OptionList
-                              title="Carbs"
+                              title={messages.nutrition.optionTitles.carbs}
                               items={meal.carbOptions.map((item) => item.name)}
+                              moreOptionsLabel={messages.nutrition.moreOptions}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <OptionList
-                              title="Fats"
+                              title={messages.nutrition.optionTitles.fats}
                               items={meal.fatOptions.map((item) => item.name)}
+                              moreOptionsLabel={messages.nutrition.moreOptions}
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <OptionList
-                              title="Extras"
+                              title={messages.nutrition.optionTitles.extras}
                               items={meal.extraOptions.map((item) => item.name)}
+                              moreOptionsLabel={messages.nutrition.moreOptions}
                             />
                           </Grid>
                         </Grid>

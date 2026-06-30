@@ -1,0 +1,202 @@
+{
+  "nav": {
+    "home": "Start",
+    "calculators": "Kalkulatory",
+    "nutrition": "Plan Zywienia",
+    "progress": "Postepy",
+    "menu": "Menu"
+  },
+  "controls": {
+    "language": "Jezyk",
+    "theme": "Motyw",
+    "light": "Jasny",
+    "dark": "Ciemny"
+  },
+  "common": {
+    "back": "Wstecz",
+    "protein": "Bialko",
+    "fats": "Tluszcze",
+    "carbs": "Weglowodany",
+    "calories": "Kalorie"
+  },
+  "home": {
+    "heroTitle": "Shape Up - Praktyczne Zywienie i Realny Postep",
+    "heroDescription": "Buduj dzienny plan, elastycznie zamieniaj produkty i monitoruj realizacje bez sztywnych diet.",
+    "heroCta": "Zacznij od Kalkulatora",
+    "howItWorks": "Jak To Dziala",
+    "whyChoose": "Wybierz Nastepny Krok",
+    "howCards": {
+      "calculateTitle": "Oblicz Swoje Potrzeby",
+      "calculateDescription": "Odpowiedz na kilka pytan i otrzymaj spersonalizowane kalorie oraz makro.",
+      "calculateCta": "Oblicz Potrzeby",
+      "planTitle": "Zbuduj Plan Zywienia",
+      "planDescription": "Wygeneruj praktyczna strukture dnia z elastycznymi zamianami produktow.",
+      "planCta": "Generuj Plan",
+      "trackTitle": "Sledz Swoj Postep",
+      "trackDescription": "Zapisuj posilki, obserwuj postep i koryguj plan na biezaco.",
+      "trackCta": "Otworz Tracker"
+    },
+    "nextStepCards": {
+      "refineTitle": "Doprecyzuj Cele",
+      "refineDescription": "Zaktualizuj profil i od razu odswiez cele kalorii oraz makro.",
+      "refineCta": "Otworz Kalkulatory",
+      "buildTitle": "Uloz Plan Na Dzis",
+      "buildDescription": "Stworz elastyczny schemat posilkow i dobierz produkty bez presji.",
+      "buildCta": "Otworz Zywienie",
+      "intakeTitle": "Kontroluj Dzienne Spozycie",
+      "intakeDescription": "Dodawaj posilki w kilku kliknieciach i pilnuj realizacji celu.",
+      "intakeCta": "Otworz Postep",
+      "complianceTitle": "Sprawdz Realizacje",
+      "complianceDescription": "Porownuj spozycie z celem, aby reagowac zanim przekroczysz limit.",
+      "complianceCta": "Przejrzyj Postep"
+    }
+  },
+  "calculator": {
+    "title": "Kalkulator BMR i TDEE",
+    "description": "Oblicz BMR i TDEE, aby oszacowac swoje dzienne zapotrzebowanie kaloryczne.",
+    "form": {
+      "title": "Wprowadz Swoje Dane",
+      "gender": "Plec",
+      "weight": "Waga (kg)",
+      "height": "Wzrost (cm)",
+      "age": "Wiek",
+      "activity": "Poziom Aktywnosci",
+      "goal": "Cel",
+      "calculate": "Oblicz",
+      "enterWeight": "Podaj wage",
+      "enterHeight": "Podaj wzrost",
+      "enterAge": "Podaj wiek",
+      "genderOptions": {
+        "male": "Mezczyzna",
+        "female": "Kobieta"
+      },
+      "activityOptions": {
+        "sedentary": "Siedzacy tryb (brak aktywnosci)",
+        "light": "Lekka aktywnosc (1-3 treningi/tydzien)",
+        "moderate": "Umiarkowana aktywnosc (3-5 treningow/tydzien)",
+        "active": "Wysoka aktywnosc (6-7 treningow/tydzien)",
+        "veryActive": "Bardzo wysoka aktywnosc (trening + praca fizyczna)"
+      },
+      "goalOptions": {
+        "lose": "Redukcja",
+        "maintain": "Utrzymanie",
+        "gain": "Budowanie Masy"
+      }
+    },
+    "results": {
+      "title": "Wyniki",
+      "empty": "Uzupelnij formularz i kliknij Oblicz, aby zobaczyc wyniki.",
+      "bmr": "Podstawowa Przemiana Materii (BMR)",
+      "bmrHint": "Szacowana liczba kalorii spalanych w spoczynku.",
+      "tdee": "Calkowita Dzienna Przemiana Energii (TDEE)",
+      "tdeeHint": "Szacowana liczba kalorii spalanych dziennie z aktywnoscia.",
+      "recommendedIntake": "Rekomendowane Spozycie Kalorii",
+      "goalHint": {
+        "lose": "Dla stopniowej redukcji (~0.5 kg/tydzien)",
+        "maintain": "Dla utrzymania masy ciala",
+        "gain": "Dla stopniowego przyrostu (~0.5 kg/tydzien)"
+      },
+      "macrosTitle": "Rekomendowany Podzial Makro",
+      "dailyTarget": "Cel dzienny",
+      "macroGoalHint": {
+        "lose": "Przy redukcji wyzsze bialko pomaga utrzymac mase miesniowa.",
+        "maintain": "Zrownowazony bilans pomaga utrzymac stabilna wage.",
+        "gain": "Budowanie masy wymaga nadwyzki kalorii i odpowiedniej podazy bialka."
+      },
+      "goToNutrition": "Przejdz Do Generatora Planu Zywienia"
+    }
+  },
+  "nutrition": {
+    "title": "Generator Planu Zywienia",
+    "planInputs": "Parametry Planu",
+    "targetCalories": "Docelowe Kalorie",
+    "requiredField": "Pole wymagane",
+    "goal": "Cel",
+    "mealsPerDay": "Posilki Dziennie",
+    "generatePlan": "Generuj Plan",
+    "openDailyProgress": "Otworz Dzienny Postep",
+    "flexibleRulesTitle": "Elastyczne Zasady",
+    "flexibleRules": {
+      "split": "Do 2 produktow w slocie i podzial 50/50 sa wspierane.",
+      "rotation": "Mozesz zamieniac posilki miejscami, laczyc je i przenosic sloty.",
+      "limit": "Najwazniejsza zasada: nie przekraczaj dziennych kalorii i makro.",
+      "beverages": "Kawa, herbata, przyprawy i napoje zero sa dozwolone.",
+      "freeMeal": "Wolny posilek: 1 raz/tydzien do 60 minut."
+    },
+    "dailyStructure": "Struktura Dnia",
+    "emptyState": "Ustaw cel i wygeneruj elastyczna strukture posilkow.",
+    "dailyTarget": "Cel Dzienny",
+    "moreOptions": "wiecej opcji",
+    "mealsPerDayOptions": {
+      "three": "3 posilki dziennie",
+      "four": "4 posilki dziennie"
+    },
+    "goalOptions": {
+      "lose": "Redukcja Tkanki Tluszczowej",
+      "maintain": "Utrzymanie",
+      "gain": "Budowanie Masy"
+    },
+    "mealTypeLabels": {
+      "breakfast": "Sniadanie",
+      "lunch": "Obiad",
+      "dinner": "Kolacja",
+      "snack": "Przekaska"
+    },
+    "optionTitles": {
+      "protein": "Bialko",
+      "carbs": "Weglowodany",
+      "fats": "Tluszcze",
+      "extras": "Custom"
+    }
+  },
+  "progressPage": {
+    "title": "Dzienny Postep",
+    "description": "Sledz posilki, porownuj je z celem i kontroluj realizacje planu."
+  },
+  "tracking": {
+    "dailyTargets": "Cele Dzienne",
+    "syncedFromCalculator": "Cele sa synchronizowane z kalkulatora.",
+    "addFoodEntry": "Dodaj Wpis Jedzenia",
+    "mealType": "Typ Posilku",
+    "category": "Kategoria",
+    "food": "Produkt",
+    "portions": "Porcje",
+    "addEntry": "Dodaj Wpis",
+    "dailyStructure": "Struktura Dnia",
+    "noPlan": "Plan nie zostal jeszcze wygenerowany. Najpierw utworz strukture zywienia.",
+    "openNutritionGenerator": "Otworz Generator Planu Zywienia",
+    "dailySummary": "Podsumowanie Dnia",
+    "adherence": "Realizacja",
+    "consumed": "Spozyte",
+    "remaining": "Pozostalo",
+    "targetLabel": "Cel",
+    "consumedLabel": "Spozyte",
+    "remainingLabel": "Pozostalo",
+    "noEntries": "Brak wpisow. Dodaj jedzenie, aby rozpoczac sledzenie.",
+    "portionsUnit": "porcji",
+    "remove": "Usun",
+    "mealTypeLabels": {
+      "breakfast": "Sniadanie",
+      "lunch": "Obiad",
+      "dinner": "Kolacja",
+      "snack": "Przekaska"
+    },
+    "categoryLabels": {
+      "protein": "Bialko",
+      "carbs": "Weglowodany",
+      "fats": "Tluszcze",
+      "extras": "Custom"
+    }
+  },
+  "compliance": {
+    "title": "Wskaznik Realizacji",
+    "totalAdherence": "Laczna Realizacja",
+    "onTrack": "W Normie",
+    "needsAdjustment": "Wymaga Korekty",
+    "offTrack": "Poza Celem",
+    "calories": "Kalorie",
+    "macros": "Makro",
+    "consumedRemaining": "Spozyte: {consumed} kcal | Pozostalo: {remaining} kcal",
+    "macroDelta": "Delta makro: B {protein}g | T {fats}g | W {carbs}g"
+  }
+}

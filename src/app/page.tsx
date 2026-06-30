@@ -11,8 +11,10 @@ import ShowChartIcon from '@mui/icons-material/ShowChart';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DevicesIcon from '@mui/icons-material/Devices';
+import InsightsIcon from '@mui/icons-material/Insights';
 import HeroSection from '@/shared/ui/HeroSection';
 import FeatureCard from '@/shared/ui/FeatureCard';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(6),
@@ -36,13 +38,15 @@ const Section = styled(Box)(({ theme }) => ({
 }));
 
 export default function Home() {
+  const { messages } = useUiPreferences();
+
   return (
     <Box sx={{ pb: 8 }}>
       {/* Hero Section */}
       <HeroSection
-        title="Shape Up - Smart Meal & Workout Planner"
-        description="Personalized nutrition plans and workout routines based on your body metrics and fitness goals."
-        ctaText="Calculate Your Needs"
+        title={messages.home.heroTitle}
+        description={messages.home.heroDescription}
+        ctaText={messages.home.heroCta}
         ctaLink="/calculators"
       />
 
@@ -50,7 +54,7 @@ export default function Home() {
       <Section>
         <Container>
           <SectionTitle variant="h3" as="h2">
-            How It Works
+            {messages.home.howItWorks}
           </SectionTitle>
 
           <Stack
@@ -61,27 +65,27 @@ export default function Home() {
             <Box sx={{ width: { xs: '100%', md: '33.33%' } }}>
               <FeatureCard
                 icon={<CalculateIcon fontSize="inherit" color="primary" />}
-                title="Calculate Your Needs"
-                description="Answer a few questions and get your personalized caloric and macronutrient requirements."
-                ctaText="Calculate Your Needs"
+                title={messages.home.howCards.calculateTitle}
+                description={messages.home.howCards.calculateDescription}
+                ctaText={messages.home.howCards.calculateCta}
                 ctaLink="/calculators"
               />
             </Box>
             <Box sx={{ width: { xs: '100%', md: '33.33%' } }}>
               <FeatureCard
                 icon={<RestaurantIcon fontSize="inherit" color="primary" />}
-                title="Get Your Meal Plan"
-                description="Receive a customized weekly meal plan that matches your dietary preferences and nutritional needs."
-                ctaText="Generate Plan"
+                title={messages.home.howCards.planTitle}
+                description={messages.home.howCards.planDescription}
+                ctaText={messages.home.howCards.planCta}
                 ctaLink="/nutrition"
               />
             </Box>
             <Box sx={{ width: { xs: '100%', md: '33.33%' } }}>
               <FeatureCard
                 icon={<ShowChartIcon fontSize="inherit" color="primary" />}
-                title="Track Your Progress"
-                description="Log your meals and workouts, track your progress, and adjust your plan as needed."
-                ctaText="Open Tracker"
+                title={messages.home.howCards.trackTitle}
+                description={messages.home.howCards.trackDescription}
+                ctaText={messages.home.howCards.trackCta}
                 ctaLink="/progress"
               />
             </Box>
@@ -93,7 +97,7 @@ export default function Home() {
       <Section>
         <Container>
           <SectionTitle variant="h3" as="h2">
-            Why Choose Shape Up
+            {messages.home.whyChoose}
           </SectionTitle>
 
           <Stack direction="row" flexWrap="wrap" sx={{ mt: 4, mx: -2 }}>
@@ -102,29 +106,37 @@ export default function Home() {
                 icon={
                   <FitnessCenterIcon fontSize="inherit" color="secondary" />
                 }
-                title="Science-Based Approach"
-                description="Our recommendations are based on the latest nutritional science and fitness research."
+                title={messages.home.nextStepCards.refineTitle}
+                description={messages.home.nextStepCards.refineDescription}
+                ctaText={messages.home.nextStepCards.refineCta}
+                ctaLink="/calculators"
               />
             </Box>
             <Box sx={{ width: { xs: '100%', sm: '50%', md: '25%' }, p: 2 }}>
               <FeatureCard
                 icon={<AccessTimeIcon fontSize="inherit" color="secondary" />}
-                title="Save Time"
-                description="No more guesswork or endless research. Get your personalized plan in minutes."
+                title={messages.home.nextStepCards.buildTitle}
+                description={messages.home.nextStepCards.buildDescription}
+                ctaText={messages.home.nextStepCards.buildCta}
+                ctaLink="/nutrition"
               />
             </Box>
             <Box sx={{ width: { xs: '100%', sm: '50%', md: '25%' }, p: 2 }}>
               <FeatureCard
                 icon={<DevicesIcon fontSize="inherit" color="secondary" />}
-                title="Access Anywhere"
-                description="Use Shape Up on any device, anytime, anywhere. Your data is always synced."
+                title={messages.home.nextStepCards.intakeTitle}
+                description={messages.home.nextStepCards.intakeDescription}
+                ctaText={messages.home.nextStepCards.intakeCta}
+                ctaLink="/progress"
               />
             </Box>
             <Box sx={{ width: { xs: '100%', sm: '50%', md: '25%' }, p: 2 }}>
               <FeatureCard
-                icon={<RestaurantIcon fontSize="inherit" color="secondary" />}
-                title="Diverse Recipes"
-                description="Access a library of delicious, nutritionally balanced recipes for every diet."
+                icon={<InsightsIcon fontSize="inherit" color="secondary" />}
+                title={messages.home.nextStepCards.complianceTitle}
+                description={messages.home.nextStepCards.complianceDescription}
+                ctaText={messages.home.nextStepCards.complianceCta}
+                ctaLink="/progress"
               />
             </Box>
           </Stack>

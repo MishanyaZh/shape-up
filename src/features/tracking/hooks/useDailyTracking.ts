@@ -1,7 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { nutritionFoodOptions } from '@/features/nutrition/data/catalog';
+import {
+  getLocalizedNutritionFoodCategories,
+  getLocalizedNutritionFoodOptions,
+} from '@/features/nutrition/data/catalogLocalization';
 import {
   MealType,
   MEAL_TYPE,
@@ -19,6 +22,7 @@ import {
 } from '@/features/tracking/domain/nutritionTargets';
 import { useAppState } from '@/providers/AppStateProvider';
 import { MealEntry, NutritionTargets } from '@/shared/domain/models';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
 interface TrackingFormState {
   mealType: MealType;
@@ -57,6 +61,7 @@ function getEntryTotals(
 }
 
 export function useDailyTracking() {
+  const { locale } = useUiPreferences();
   const { state, setTrackingEntries } = useAppState();
 
   const [formState, setFormState] =
@@ -66,14 +71,24 @@ export function useDailyTracking() {
   const plan = state.generatedNutritionPlan;
   const entries = state.trackingEntries;
 
+  const localizedFoodOptions = useMemo(
+    () => getLocalizedNutritionFoodOptions(locale),
+    [locale],
+  );
+
+  const localizedFoodCategories = useMemo(
+    () => getLocalizedNutritionFoodCategories(locale),
+    [locale],
+  );
+
   const availableFoods = useMemo(
     () =>
-      nutritionFoodOptions.filter(
+      localizedFoodOptions.filter(
         (food) =>
           food.categoryId === formState.categoryId &&
           food.mealTypes.includes(formState.mealType),
       ),
-    [formState.categoryId, formState.mealType],
+    [formState.categoryId, formState.mealType, localizedFoodOptions],
   );
 
   const target = useMemo<NutritionTargets>(
@@ -89,7 +104,7 @@ export function useDailyTracking() {
   const entryViews = useMemo<TrackingEntryView[]>(() => {
     return entries
       .map((entry) => {
-        const food = nutritionFoodOptions.find(
+        const food = localizedFoodOptions.find(
           (item) => item.id === entry.foodOptionId,
         );
         if (!food) {
@@ -103,7 +118,7 @@ export function useDailyTracking() {
         };
       })
       .filter((item): item is TrackingEntryView => Boolean(item));
-  }, [entries]);
+  }, [entries, localizedFoodOptions]);
 
   const consumed = useMemo(() => {
     return entryViews.reduce(
@@ -150,7 +165,7 @@ export function useDailyTracking() {
 
   const handleAddEntry = () => {
     const quantity = Number(formState.quantity);
-    const selectedFood = nutritionFoodOptions.find(
+    const selectedFood = localizedFoodOptions.find(
       (item) => item.id === formState.foodId,
     );
 
@@ -183,6 +198,7 @@ export function useDailyTracking() {
     calorieAdherence,
     macroAdherence,
     adherencePercent,
+    foodCategories: localizedFoodCategories,
     availableFoods,
     handleFormSelectChange,
     handleAddEntry,

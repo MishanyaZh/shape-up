@@ -1,6 +1,7 @@
 import { Box, Chip, LinearProgress, Typography } from '@mui/material';
 import Card from '@/shared/ui/Card';
 import { NutritionTargets } from '@/shared/domain/models';
+import { useUiPreferences } from '@/providers/UiPreferencesProvider';
 
 interface ComplianceIndicatorCardProps {
   calorieAdherence: number;
@@ -49,19 +50,21 @@ export default function ComplianceIndicatorCard({
   consumed,
   remaining,
 }: ComplianceIndicatorCardProps) {
+  const { messages, t } = useUiPreferences();
+
   const tone = getComplianceTone(combinedAdherence);
   const statusLabel =
     tone === 'success'
-      ? 'On Track'
+      ? messages.compliance.onTrack
       : tone === 'warning'
-        ? 'Needs Adjustment'
-        : 'Off Track';
+        ? messages.compliance.needsAdjustment
+        : messages.compliance.offTrack;
 
   return (
-    <Card title="Compliance Indicator">
+    <Card title={messages.compliance.title}>
       <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 2 }}>
         <Chip
-          label={`${combinedAdherence}% Total Adherence`}
+          label={`${combinedAdherence}% ${messages.compliance.totalAdherence}`}
           color={tone}
           variant="filled"
         />
@@ -69,17 +72,25 @@ export default function ComplianceIndicatorCard({
       </Box>
 
       <Box sx={{ display: 'grid', gap: 1.5, mb: 2 }}>
-        <MetricBar label="Calories" value={calorieAdherence} />
-        <MetricBar label="Macros" value={macroAdherence} />
+        <MetricBar
+          label={messages.compliance.calories}
+          value={calorieAdherence}
+        />
+        <MetricBar label={messages.compliance.macros} value={macroAdherence} />
       </Box>
 
       <Typography variant="body2" color="text.secondary">
-        Consumed: {consumed.calories} kcal | Remaining: {remaining.calories}{' '}
-        kcal
+        {t('compliance.consumedRemaining', {
+          consumed: consumed.calories,
+          remaining: remaining.calories,
+        })}
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        Macro delta: P {remaining.proteinGrams}g | F {remaining.fatGrams}g | C{' '}
-        {remaining.carbsGrams}g
+        {t('compliance.macroDelta', {
+          protein: remaining.proteinGrams,
+          fats: remaining.fatGrams,
+          carbs: remaining.carbsGrams,
+        })}
       </Typography>
     </Card>
   );

@@ -1,0 +1,202 @@
+{
+  "nav": {
+    "home": "Home",
+    "calculators": "Calculators",
+    "nutrition": "Nutrition Plan",
+    "progress": "Progress",
+    "menu": "Menu"
+  },
+  "controls": {
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "common": {
+    "back": "Back",
+    "protein": "Protein",
+    "fats": "Fats",
+    "carbs": "Carbs",
+    "calories": "Calories"
+  },
+  "home": {
+    "heroTitle": "Shape Up - Practical Nutrition, Real Progress",
+    "heroDescription": "Build your daily plan, swap foods flexibly, and track adherence without rigid dieting rules.",
+    "heroCta": "Start With Calculator",
+    "howItWorks": "How It Works",
+    "whyChoose": "Choose Your Next Step",
+    "howCards": {
+      "calculateTitle": "Calculate Your Needs",
+      "calculateDescription": "Answer a few questions and get your personalized caloric and macronutrient requirements.",
+      "calculateCta": "Calculate Your Needs",
+      "planTitle": "Get Your Meal Plan",
+      "planDescription": "Generate a practical daily structure with flexible product swaps and realistic portions.",
+      "planCta": "Generate Plan",
+      "trackTitle": "Track Your Progress",
+      "trackDescription": "Log your meals and workouts, track your progress, and adjust your plan as needed.",
+      "trackCta": "Open Tracker"
+    },
+    "nextStepCards": {
+      "refineTitle": "Refine Your Targets",
+      "refineDescription": "Update profile inputs and instantly refresh calories and macros for your current goal.",
+      "refineCta": "Open Calculators",
+      "buildTitle": "Build Today Plan",
+      "buildDescription": "Generate a flexible meal framework and adjust product choices without losing control.",
+      "buildCta": "Open Nutrition",
+      "intakeTitle": "Track Daily Intake",
+      "intakeDescription": "Log meals in a few taps and keep adherence visible during the day.",
+      "intakeCta": "Open Progress",
+      "complianceTitle": "Check Compliance",
+      "complianceDescription": "See calories and macros consumed versus target to adjust before overreaching.",
+      "complianceCta": "Review Progress"
+    }
+  },
+  "calculator": {
+    "title": "BMR and TDEE Calculator",
+    "description": "Calculate your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) to estimate your daily calorie needs.",
+    "form": {
+      "title": "Enter Your Data",
+      "gender": "Gender",
+      "weight": "Weight (kg)",
+      "height": "Height (cm)",
+      "age": "Age",
+      "activity": "Activity Level",
+      "goal": "Goal",
+      "calculate": "Calculate",
+      "enterWeight": "Enter your weight",
+      "enterHeight": "Enter your height",
+      "enterAge": "Enter your age",
+      "genderOptions": {
+        "male": "Male",
+        "female": "Female"
+      },
+      "activityOptions": {
+        "sedentary": "Sedentary (little to no exercise)",
+        "light": "Light activity (exercise 1-3 days/week)",
+        "moderate": "Moderate activity (exercise 3-5 days/week)",
+        "active": "High activity (intense exercise 6-7 days/week)",
+        "veryActive": "Very high activity (intense exercise + physical work)"
+      },
+      "goalOptions": {
+        "lose": "Lose Fat",
+        "maintain": "Maintain Weight",
+        "gain": "Gain Weight"
+      }
+    },
+    "results": {
+      "title": "Results",
+      "empty": "Fill in the form and press Calculate to see your results.",
+      "bmr": "Basal Metabolic Rate (BMR)",
+      "bmrHint": "Estimated calories your body uses at rest.",
+      "tdee": "Total Daily Energy Expenditure (TDEE)",
+      "tdeeHint": "Estimated calories burned per day including activity.",
+      "recommendedIntake": "Recommended Calorie Intake",
+      "goalHint": {
+        "lose": "For gradual fat loss (~0.5 kg/week)",
+        "maintain": "For weight maintenance",
+        "gain": "For gradual weight gain (~0.5 kg/week)"
+      },
+      "macrosTitle": "Recommended Macronutrient Split",
+      "dailyTarget": "Daily target",
+      "macroGoalHint": {
+        "lose": "During fat loss, higher protein intake helps preserve lean muscle mass.",
+        "maintain": "A balanced intake helps maintain body weight and overall well-being.",
+        "gain": "Muscle gain requires a calorie surplus and sufficient daily protein intake."
+      },
+      "goToNutrition": "Go To Nutrition Plan Generator"
+    }
+  },
+  "nutrition": {
+    "title": "Nutrition Plan Generator",
+    "planInputs": "Plan Inputs",
+    "targetCalories": "Target Calories",
+    "requiredField": "Required field",
+    "goal": "Goal",
+    "mealsPerDay": "Meals Per Day",
+    "generatePlan": "Generate Plan",
+    "openDailyProgress": "Open Daily Progress",
+    "flexibleRulesTitle": "Flexible Rules",
+    "flexibleRules": {
+      "split": "Up to 2 products per slot and 50/50 split are supported.",
+      "rotation": "Meal rotation, meal merge, and slot move between meals are allowed.",
+      "limit": "Main rule: do not exceed daily calories and macro targets.",
+      "beverages": "Coffee, tea, spices, and zero-calorie drinks are allowed.",
+      "freeMeal": "Weekly free meal: 1 time/week, up to 60 minutes."
+    },
+    "dailyStructure": "Daily Structure",
+    "emptyState": "Set your target and generate a flexible meal structure.",
+    "dailyTarget": "Daily Target",
+    "moreOptions": "more options",
+    "mealsPerDayOptions": {
+      "three": "3 meals per day",
+      "four": "4 meals per day"
+    },
+    "goalOptions": {
+      "lose": "Fat Loss",
+      "maintain": "Maintenance",
+      "gain": "Muscle Gain"
+    },
+    "mealTypeLabels": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack"
+    },
+    "optionTitles": {
+      "protein": "Protein",
+      "carbs": "Carbs",
+      "fats": "Fats",
+      "extras": "Custom"
+    }
+  },
+  "progressPage": {
+    "title": "Daily Progress",
+    "description": "Track meals, compare with targets, and monitor daily adherence."
+  },
+  "tracking": {
+    "dailyTargets": "Daily Targets",
+    "syncedFromCalculator": "Targets are synced from calculator results.",
+    "addFoodEntry": "Add Food Entry",
+    "mealType": "Meal Type",
+    "category": "Category",
+    "food": "Food",
+    "portions": "Portions",
+    "addEntry": "Add Entry",
+    "dailyStructure": "Daily Structure",
+    "noPlan": "No plan generated yet. Create your nutrition structure first.",
+    "openNutritionGenerator": "Open Nutrition Plan Generator",
+    "dailySummary": "Daily Summary",
+    "adherence": "Adherence",
+    "consumed": "Consumed",
+    "remaining": "Remaining",
+    "targetLabel": "Target",
+    "consumedLabel": "Consumed",
+    "remainingLabel": "Remaining",
+    "noEntries": "No entries yet. Add food to start tracking.",
+    "portionsUnit": "portion(s)",
+    "remove": "Remove",
+    "mealTypeLabels": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack"
+    },
+    "categoryLabels": {
+      "protein": "Protein",
+      "carbs": "Carbs",
+      "fats": "Fats",
+      "extras": "Custom"
+    }
+  },
+  "compliance": {
+    "title": "Compliance Indicator",
+    "totalAdherence": "Total Adherence",
+    "onTrack": "On Track",
+    "needsAdjustment": "Needs Adjustment",
+    "offTrack": "Off Track",
+    "calories": "Calories",
+    "macros": "Macros",
+    "consumedRemaining": "Consumed: {consumed} kcal | Remaining: {remaining} kcal",
+    "macroDelta": "Macro delta: P {protein}g | F {fats}g | C {carbs}g"
+  }
+}
